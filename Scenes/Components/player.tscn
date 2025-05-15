@@ -1,7 +1,19 @@
-[gd_scene load_steps=16 format=3 uid="uid://cluqhmv1qfhcw"]
+[gd_scene load_steps=19 format=3 uid="uid://cluqhmv1qfhcw"]
 
 [ext_resource type="Script" uid="uid://erigdd5s0fud" path="res://Scripts/player.gd" id="1_coypj"]
 [ext_resource type="Texture2D" uid="uid://by7m35xsui65p" path="res://Assets/SpriteSheets/Provs/Ast_SS.png" id="1_vu1j6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3tjp4"]
+atlas = ExtResource("1_vu1j6")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_07w4o"]
+atlas = ExtResource("1_vu1j6")
+region = Rect2(16, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qj2ly"]
+atlas = ExtResource("1_vu1j6")
+region = Rect2(32, 48, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_coypj"]
 atlas = ExtResource("1_vu1j6")
@@ -51,6 +63,20 @@ region = Rect2(48, 16, 16, 16)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_3tjp4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_07w4o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qj2ly")
+}],
+"loop": true,
+"name": &"IdleB",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_coypj")
 }, {
 "duration": 1.0,
@@ -60,7 +86,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_p0vwk")
 }],
 "loop": true,
-"name": &"Idle",
+"name": &"IdleF",
 "speed": 2.0
 }, {
 "frames": [{
@@ -102,14 +128,16 @@ animations = [{
 size = Vector2(8, 12)
 
 [node name="Player" type="CharacterBody2D"]
+scale = Vector2(3, 3)
 script = ExtResource("1_coypj")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="PlayerSprites" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_3tjp4")
-animation = &"WalkingUp"
+animation = &"IdleB"
+autoplay = "IdleF"
 frame = 2
-frame_progress = 0.816424
+frame_progress = 0.0711822
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="PlayerCollision" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_07w4o")
