@@ -14,7 +14,21 @@ config/name="AstraEternum"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[file_customization]
+
+folder_colors={
+"res://Assets/": "yellow",
+"res://Assets/DotAse/": "red",
+"res://Assets/SpriteSheets/": "green",
+"res://Assets/TileSets/": "blue",
+"res://Scenes/": "yellow",
+"res://Scenes/Components/": "green",
+"res://Scripts/": "yellow",
+"res://Shaders/": "yellow"
+}
+
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
