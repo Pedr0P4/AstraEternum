@@ -161,7 +161,7 @@ script = ExtResource("1_coypj")
 
 [node name="PlayerSprites" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_3tjp4")
-animation = &"Move_down"
+animation = &"IdleB"
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)
