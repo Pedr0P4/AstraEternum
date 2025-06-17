@@ -26,5 +26,5 @@ func fire(marker: Marker2D) -> void:
 	bullet_instance.dir = rotation;
 	bullet_instance.pos = marker.global_position;
 	bullet_instance.rot = rotation - PI/2;
-	bullet_instance.scl = 2;
+	bullet_instance.scl = 1;
 	get_tree().current_scene.add_child(bullet_instance);
