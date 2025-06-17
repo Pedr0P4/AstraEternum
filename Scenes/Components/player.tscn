@@ -126,7 +126,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_07w4o"]
-size = Vector2(8, 12)
+size = Vector2(8, 11)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p0vwk"]
 atlas = ExtResource("3_i6t11")
@@ -157,6 +157,7 @@ animations = [{
 
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(3, 3)
+motion_mode = 1
 script = ExtResource("1_coypj")
 
 [node name="PlayerSprites" type="AnimatedSprite2D" parent="."]
@@ -164,7 +165,7 @@ sprite_frames = SubResource("SpriteFrames_3tjp4")
 animation = &"Move_down"
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="."]
-position = Vector2(0, -1)
+position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_07w4o")
 
 [node name="Arms" type="AnimatedSprite2D" parent="."]
