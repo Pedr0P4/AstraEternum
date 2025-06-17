@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name Projectile
 
-var speed = 500;
+var speed = 350;
 var pos: Vector2;
 var rot: float;
 var dir: float;
