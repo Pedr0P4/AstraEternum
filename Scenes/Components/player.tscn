@@ -126,11 +126,12 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_07w4o"]
-size = Vector2(8, 12)
+size = Vector2(8, 11)
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 5
 scale = Vector2(3, 3)
+motion_mode = 1
 script = ExtResource("1_coypj")
 
 [node name="PlayerSprites" type="AnimatedSprite2D" parent="."]
@@ -138,7 +139,7 @@ sprite_frames = SubResource("SpriteFrames_3tjp4")
 animation = &"IdleB"
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="."]
-position = Vector2(0, -1)
+position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_07w4o")
 
 [node name="LaserGun" parent="." node_paths=PackedStringArray("related") instance=ExtResource("3_i6t11")]

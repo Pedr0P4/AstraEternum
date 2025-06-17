@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://dorvu4pup3jmw"]
+
+[ext_resource type="Texture2D" uid="uid://de3obnu7erwge" path="res://Assets/img/tileset.png" id="1_k5f4k"]
+[ext_resource type="Script" uid="uid://3svf8hvqfe86" path="res://Scripts/level.gd" id="1_tumq0"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6phgx"]
+texture = ExtResource("1_k5f4k")
+0:0/0 = 0
+1:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_81xng"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_6phgx")
+
+[node name="Level" type="TileMapLayer"]
+tile_set = SubResource("TileSet_81xng")
+script = ExtResource("1_tumq0")
