@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://bqq7y1c1oxl1u"]
+
+[ext_resource type="Texture2D" uid="uid://ce5klyfn3dno5" path="res://Assets/DotAse/Sprites/Provs/Ast_arm.png" id="1_ei6jx"]
+[ext_resource type="Script" uid="uid://62p8e3wrkghl" path="res://Scripts/gun.gd" id="1_wql21"]
+[ext_resource type="PackedScene" uid="uid://b6rlo1qrfn4qx" path="res://Scenes/Components/bullet.tscn" id="2_d8hd3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wql21"]
+atlas = ExtResource("1_ei6jx")
+region = Rect2(0, 0, 14, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d8hd3"]
+atlas = ExtResource("1_ei6jx")
+region = Rect2(14, 0, 14, 10)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g0vbd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wql21")
+}],
+"loop": true,
+"name": &"Sides",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d8hd3")
+}],
+"loop": true,
+"name": &"Up_Down",
+"speed": 5.0
+}]
+
+[node name="LaserGun" type="Node2D"]
+z_index = 10
+script = ExtResource("1_wql21")
+bullet = ExtResource("2_d8hd3")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_g0vbd")
+animation = &"Up_Down"
+autoplay = "Sides"
+offset = Vector2(3.105, 0)
+
+[node name="ShootCD" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="Position" type="Marker2D" parent="."]
+position = Vector2(7, 0)
+
+[connection signal="timeout" from="ShootCD" to="." method="_on_shoot_cd_timeout"]
