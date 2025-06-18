@@ -1,7 +1,10 @@
 @tool
 extends TileMapLayer
+class_name Region
 
 @export var length: Vector2i
+@export var region: int
+@export var item: PackedScene
 
 func divide_room(room: Rect2i) -> Array[Rect2i]:
 	var axis: StringName = "x" if room.size.x >= room.size.y else "y"
@@ -64,6 +67,38 @@ func create_corridor_between(room_a: Rect2i, room_b: Rect2i):
 
 var rooms: Array[Rect2i]
 
+func place_item_in_random_distant_room():
+	var rng := RandomNumberGenerator.new()
+	rng.randomize()
+
+	var tile_size = tile_set.tile_size
+	var origin_center = rooms[0].get_center()
+	var min_distance := 10.0  # você pode ajustar esse valor
+
+	# Filtrar salas com distância suficiente
+	var distant_rooms: Array[Rect2i] = []
+	for room in rooms:
+		var dist = origin_center.distance_to(room.get_center())
+		if dist >= min_distance:
+			distant_rooms.append(room)
+
+	# Se não houver nenhuma suficientemente distante, usa qualquer uma (fallback)
+	var chosen_room: Rect2i
+	if distant_rooms.size() > 0:
+		chosen_room = distant_rooms.pick_random()
+	else:
+		chosen_room = rooms.pick_random()
+
+	# Instanciar item no centro da sala
+	if item:
+		var item_instance = item.instantiate()
+		var center = chosen_room.get_center()
+		item_instance.position = Vector2(center) * Vector2(tile_size) + Vector2(tile_size) / 2
+		item_instance.change_item(region);
+		add_child(item_instance)
+	else:
+		print("Cena do item não atribuída!")
+
 func _ready():
 	var rng := RandomNumberGenerator.new()
 	var split_count := 4
@@ -112,3 +147,5 @@ func _ready():
 		if right_child_idx < rooms.size():
 			var right_child_room = rooms[right_child_idx]
 			create_corridor_between(parent_room, right_child_room)
+	
+	place_item_in_random_distant_room()

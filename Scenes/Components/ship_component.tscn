@@ -1,0 +1,72 @@
+[gd_scene load_steps=9 format=3 uid="uid://chffmpeu8nd8g"]
+
+[ext_resource type="Texture2D" uid="uid://yckj80646rt6" path="res://Assets/SpriteSheets/spaceship_components.png" id="1_owsl2"]
+[ext_resource type="Script" uid="uid://cox1o81emhmvt" path="res://ship_component.gd" id="1_ti7kx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ti7kx"]
+atlas = ExtResource("1_owsl2")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kg1es"]
+atlas = ExtResource("1_owsl2")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41trc"]
+atlas = ExtResource("1_owsl2")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bpe5n"]
+atlas = ExtResource("1_owsl2")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2ouyv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ti7kx")
+}],
+"loop": true,
+"name": &"antenna",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kg1es")
+}],
+"loop": true,
+"name": &"battery",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41trc")
+}],
+"loop": true,
+"name": &"control_core",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bpe5n")
+}],
+"loop": true,
+"name": &"wings",
+"speed": 0.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mibwl"]
+radius = 11.0454
+
+[node name="ShipComponent" type="Node2D"]
+script = ExtResource("1_ti7kx")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_2ouyv")
+animation = &"wings"
+
+[node name="CollectArea" type="Area2D" parent="."]
+
+[node name="Collision" type="CollisionShape2D" parent="CollectArea"]
+shape = SubResource("CircleShape2D_mibwl")
+
+[connection signal="body_entered" from="CollectArea" to="." method="_on_collect_area_body_entered"]

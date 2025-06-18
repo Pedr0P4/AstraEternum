@@ -1,0 +1,91 @@
+[gd_scene load_steps=10 format=3 uid="uid://d2p6hi24an8ps"]
+
+[ext_resource type="Texture2D" uid="uid://drxhp7irboqvf" path="res://Assets/SpriteSheets/spaceship.png" id="1_abngv"]
+[ext_resource type="Script" uid="uid://dmw1wvgav0v3f" path="res://Scripts/spaceship.gd" id="1_iwemp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iwemp"]
+atlas = ExtResource("1_abngv")
+region = Rect2(0, 0, 40, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q836q"]
+atlas = ExtResource("1_abngv")
+region = Rect2(40, 0, 40, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8jgng"]
+atlas = ExtResource("1_abngv")
+region = Rect2(80, 0, 40, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ihwy4"]
+atlas = ExtResource("1_abngv")
+region = Rect2(120, 0, 40, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_15cjw"]
+atlas = ExtResource("1_abngv")
+region = Rect2(160, 0, 40, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2yt7t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iwemp")
+}],
+"loop": true,
+"name": &"lv0",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q836q")
+}],
+"loop": true,
+"name": &"lv1",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8jgng")
+}],
+"loop": true,
+"name": &"lv2",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ihwy4")
+}],
+"loop": true,
+"name": &"lv3",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_15cjw")
+}],
+"loop": true,
+"name": &"lv4",
+"speed": 0.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_abngv"]
+radius = 24.0832
+
+[node name="Spaceship" type="Node2D"]
+z_index = 5
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_iwemp")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_2yt7t")
+animation = &"lv4"
+autoplay = "lv0"
+
+[node name="InteractArea" type="Area2D" parent="."]
+z_index = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+position = Vector2(1, 1)
+rotation = 1.5708
+shape = SubResource("CircleShape2D_abngv")
+one_way_collision_margin = 0.0
+
+[connection signal="body_entered" from="InteractArea" to="." method="_on_interact_area_body_entered"]
