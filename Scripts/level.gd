@@ -151,11 +151,8 @@ func place_item_in_random_distant_room():
 func _ready():
 	var rng := RandomNumberGenerator.new()
 	var split_count := 4
-
-func _ready():
 	rooms = generate_dungeon(split_count, length)
 
-	var rng := RandomNumberGenerator.new()
 	for r in rooms:
 		for i in rng.randi_range(3, 5):
 			var x = randi_range(r.position.x, r.position.x + r.size.x - 1)

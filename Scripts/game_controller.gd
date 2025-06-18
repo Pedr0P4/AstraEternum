@@ -15,6 +15,9 @@ func _process(delta: float) -> void:
 	if player.collected:
 		change_itens();
 		player.collected = false;
+	
+	if actual_region > 4:
+		get_tree().change_scene_to_file("res://Scenes/victory.tscn");
 
 func increment_region() -> void:
 	actual_region += 1;
