@@ -1,7 +1,9 @@
 extends TileMapLayer
+class_name Region
 
-@export var length := Vector2i(70, 40)
-@export var split_count := 4
+@export var length: Vector2i
+@export var region: int
+@export var item: PackedScene
 
 func divide_room(room: Rect2i) -> Array[Rect2i]:
 	var axis: StringName = "x" if room.size.x >= room.size.y else "y"
@@ -114,6 +116,42 @@ var rooms: Array[Rect2i]
 var enemies: Array[Resource]
 
 
+func place_item_in_random_distant_room():
+	var rng := RandomNumberGenerator.new()
+	rng.randomize()
+
+	var tile_size = tile_set.tile_size
+	var origin_center = rooms[0].get_center()
+	var min_distance := 10.0  # você pode ajustar esse valor
+
+	# Filtrar salas com distância suficiente
+	var distant_rooms: Array[Rect2i] = []
+	for room in rooms:
+		var dist = origin_center.distance_to(room.get_center())
+		if dist >= min_distance:
+			distant_rooms.append(room)
+
+	# Se não houver nenhuma suficientemente distante, usa qualquer uma (fallback)
+	var chosen_room: Rect2i
+	if distant_rooms.size() > 0:
+		chosen_room = distant_rooms.pick_random()
+	else:
+		chosen_room = rooms.pick_random()
+
+	# Instanciar item no centro da sala
+	if item:
+		var item_instance = item.instantiate()
+		var center = chosen_room.get_center()
+		item_instance.position = Vector2(center) * Vector2(tile_size) + Vector2(tile_size) / 2
+		item_instance.change_item(region);
+		add_child(item_instance)
+	else:
+		print("Cena do item não atribuída!")
+
+func _ready():
+	var rng := RandomNumberGenerator.new()
+	var split_count := 4
+
 func _ready():
 	rooms = generate_dungeon(split_count, length)
 
@@ -123,6 +161,35 @@ func _ready():
 			var x = randi_range(r.position.x, r.position.x + r.size.x - 1)
 			var y = randi_range(r.position.y, r.position.y + r.size.y - 1)
 
-			var enemy := enemy_scene.instantiate()
-			enemy.position = self.map_to_local(Vector2(x, y))
-			add_child(enemy)
+
+		if r.size.y <= 5:
+			padding.y = 1
+			padding.z = 1
+		else:
+			padding.y = rng.randi_range(1,2)
+			padding.z = rng.randi_range(1,2)
+
+		if r.position == Vector2i.ZERO:
+			padding.w = 0
+			padding.y = 0
+
+		for x in range(r.position.x + padding.w, r.end.x - padding.x):
+			for y in range(r.position.y + padding.y, r.end.y - padding.z):
+				set_cell(Vector2(x, y), 0, Vector2(0, 0))
+
+	var num_parents = (rooms.size() - 1) / 2
+	
+	for i in range(num_parents + 1):
+		var parent_room = rooms[i]
+
+		var left_child_idx = 2 * i + 1
+		if left_child_idx < rooms.size():
+			var left_child_room = rooms[left_child_idx]
+			create_corridor_between(parent_room, left_child_room)
+
+		var right_child_idx = 2 * i + 2
+		if right_child_idx < rooms.size():
+			var right_child_room = rooms[right_child_idx]
+			create_corridor_between(parent_room, right_child_room)
+	
+	place_item_in_random_distant_room()

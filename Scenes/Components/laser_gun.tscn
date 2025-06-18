@@ -1,22 +1,46 @@
-[gd_scene load_steps=7 format=3 uid="uid://bqq7y1c1oxl1u"]
+[gd_scene load_steps=13 format=3 uid="uid://bqq7y1c1oxl1u"]
 
 [ext_resource type="Texture2D" uid="uid://ce5klyfn3dno5" path="res://Assets/DotAse/Sprites/Provs/Ast_arm.png" id="1_ei6jx"]
 [ext_resource type="Script" uid="uid://62p8e3wrkghl" path="res://Scripts/gun.gd" id="1_wql21"]
 [ext_resource type="PackedScene" uid="uid://b6rlo1qrfn4qx" path="res://Scenes/Components/bullet.tscn" id="2_d8hd3"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wql21"]
-atlas = ExtResource("1_ei6jx")
-region = Rect2(0, 0, 14, 10)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_d8hd3"]
 atlas = ExtResource("1_ei6jx")
-region = Rect2(14, 0, 14, 10)
+region = Rect2(0, 0, 15, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_57l4q"]
+atlas = ExtResource("1_ei6jx")
+region = Rect2(15, 0, 15, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lauxj"]
+atlas = ExtResource("1_ei6jx")
+region = Rect2(30, 0, 15, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_slo7e"]
+atlas = ExtResource("1_ei6jx")
+region = Rect2(45, 0, 15, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_smi3x"]
+atlas = ExtResource("1_ei6jx")
+region = Rect2(75, 0, 15, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hdum3"]
+atlas = ExtResource("1_ei6jx")
+region = Rect2(90, 0, 15, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_78xbr"]
+atlas = ExtResource("1_ei6jx")
+region = Rect2(105, 0, 15, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g0vbd"]
+atlas = ExtResource("1_ei6jx")
+region = Rect2(60, 0, 15, 10)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_g0vbd"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wql21")
+"texture": SubResource("AtlasTexture_d8hd3")
 }],
 "loop": true,
 "name": &"Sides",
@@ -24,7 +48,35 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_d8hd3")
+"texture": SubResource("AtlasTexture_57l4q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lauxj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_slo7e")
+}],
+"loop": false,
+"name": &"Sides_shooting",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_smi3x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hdum3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_78xbr")
+}],
+"loop": false,
+"name": &"UpDown_shooting",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g0vbd")
 }],
 "loop": true,
 "name": &"Up_Down",
@@ -38,7 +90,7 @@ bullet = ExtResource("2_d8hd3")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_g0vbd")
-animation = &"Sides"
+animation = &"Sides_shooting"
 autoplay = "Sides"
 offset = Vector2(3.105, 0)
 
@@ -49,4 +101,5 @@ one_shot = true
 [node name="Position" type="Marker2D" parent="."]
 position = Vector2(7, 0)
 
+[connection signal="animation_finished" from="Sprite" to="." method="_on_sprite_animation_finished"]
 [connection signal="timeout" from="ShootCD" to="." method="_on_shoot_cd_timeout"]
