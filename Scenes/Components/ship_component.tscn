@@ -63,6 +63,7 @@ script = ExtResource("1_ti7kx")
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_2ouyv")
 animation = &"wings"
+autoplay = "wings"
 
 [node name="CollectArea" type="Area2D" parent="."]
 

@@ -1,6 +1,6 @@
 extends Node2D
 
-signal component_picked(region: int);
+signal component_picked;
 
 var related_region: int;
 
@@ -22,5 +22,6 @@ func _on_collect_area_body_entered(body: Node2D) -> void:
 	if body is Player:
 		if !body.is_with_component:
 			body.is_with_component = true;
+			body.collected = true;
 			print("Coletado!");
 			queue_free();

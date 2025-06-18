@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="AstraEternum"
-run/main_scene="uid://bih2b2lwmg8i6"
+run/main_scene="uid://d1w6mvxx62pss"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 

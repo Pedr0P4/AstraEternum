@@ -3,8 +3,8 @@ extends TileMapLayer
 class_name Region
 
 @export var length: Vector2i
-@export var region: int
 @export var item: PackedScene
+var item_inst;
 
 func divide_room(room: Rect2i) -> Array[Rect2i]:
 	var axis: StringName = "x" if room.size.x >= room.size.y else "y"
@@ -92,9 +92,9 @@ func place_item_in_random_distant_room():
 	# Instanciar item no centro da sala
 	if item:
 		var item_instance = item.instantiate()
+		item_inst = item_instance
 		var center = chosen_room.get_center()
 		item_instance.position = Vector2(center) * Vector2(tile_size) + Vector2(tile_size) / 2
-		item_instance.change_item(region);
 		add_child(item_instance)
 	else:
 		print("Cena do item não atribuída!")
