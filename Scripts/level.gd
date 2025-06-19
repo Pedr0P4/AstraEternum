@@ -70,45 +70,44 @@ var rooms: Array[Rect2i]
 func place_item_in_random_distant_room():
 	var rng := RandomNumberGenerator.new()
 	rng.randomize()
-
+	
 	var tile_size = tile_set.tile_size
 	var origin_center = rooms[0].get_center()
 	var min_distance := 10.0  # você pode ajustar esse valor
-
+	
 	# Filtrar salas com distância suficiente
 	var distant_rooms: Array[Rect2i] = []
 	for room in rooms:
 		var dist = origin_center.distance_to(room.get_center())
 		if dist >= min_distance:
 			distant_rooms.append(room)
-
+	
 	# Se não houver nenhuma suficientemente distante, usa qualquer uma (fallback)
 	var chosen_room: Rect2i
 	if distant_rooms.size() > 0:
 		chosen_room = distant_rooms.pick_random()
 	else:
 		chosen_room = rooms.pick_random()
-
 	# Instanciar item no centro da sala
 	if item:
 		var item_instance = item.instantiate()
 		item_inst = item_instance;
 		var center = chosen_room.get_center()
 		item_instance.position = Vector2(center) * Vector2(tile_size) + Vector2(tile_size) / 2
-		add_child(item_instance)
+		add_child(item_instance);
 	else:
 		print("Cena do item não atribuída!")
 
 func _ready():
 	var rng := RandomNumberGenerator.new()
 	var split_count := 4
-
+	
 	rooms = generate_dungeon(split_count, length)
-
+	
 	for x in range(length.x):
 		for y in range(length.y):
 			set_cell(Vector2(x, y), 0, Vector2(1, 0))
-
+	
 	for r in rooms:
 		var padding: Vector4i
 		if r.size.x <= 5:
@@ -117,32 +116,32 @@ func _ready():
 		else:
 			padding.w = rng.randi_range(1,2)
 			padding.x = rng.randi_range(1,2)
-
+	
 		if r.size.y <= 5:
 			padding.y = 1
 			padding.z = 1
 		else:
 			padding.y = rng.randi_range(1,2)
 			padding.z = rng.randi_range(1,2)
-
+	
 		if r.position == Vector2i.ZERO:
 			padding.w = 0
 			padding.y = 0
-
+	
 		for x in range(r.position.x + padding.w, r.end.x - padding.x):
 			for y in range(r.position.y + padding.y, r.end.y - padding.z):
 				set_cell(Vector2(x, y), 0, Vector2(0, 0))
-
+	
 	var num_parents = (rooms.size() - 1) / 2
 	
 	for i in range(num_parents + 1):
 		var parent_room = rooms[i]
-
+	
 		var left_child_idx = 2 * i + 1
 		if left_child_idx < rooms.size():
 			var left_child_room = rooms[left_child_idx]
 			create_corridor_between(parent_room, left_child_room)
-
+	
 		var right_child_idx = 2 * i + 2
 		if right_child_idx < rooms.size():
 			var right_child_room = rooms[right_child_idx]
