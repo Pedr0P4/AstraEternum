@@ -3,17 +3,18 @@ class_name Weapon
 
 @export var related: Player;
 @export var bullet: PackedScene;
+var shooting: bool;
 
 func point(sprite: AnimatedSprite2D) -> void:
 	var globalM_pos: Vector2 = get_global_mouse_position();
 	var x_cap: float = abs(globalM_pos.y - related.position.y)*1.2;
-	z_index = 1;
-	if(globalM_pos.x < related.position.x + x_cap && globalM_pos.x > related.position.x - x_cap):
+	if(globalM_pos.x < related.position.x + x_cap && globalM_pos.x > related.position.x - x_cap && !shooting):
 		sprite.play("Up_Down");
 		sprite.flip_v = false;
 		if globalM_pos.y < related.position.y:
 			z_index = -1;
-	else:
+	elif !shooting:
+		z_index = 1;
 		sprite.play("Sides");
 		sprite.rotate(0);
 		if globalM_pos.x < related.position.x:

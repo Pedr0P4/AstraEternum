@@ -4,6 +4,12 @@ extends CharacterBody2D
 @onready var player_sprite: AnimatedSprite2D = $PlayerSprites;
 @onready var player_collider: CollisionShape2D = $PlayerCollision;
 const VELOCITY: int = 150;
+var is_with_component: bool;
+var collected: bool;
+
+func _ready() -> void:
+	is_with_component = false;
+	collected = false;
 
 func _process(delta: float) -> void:
 	var globalM_pos: Vector2 = get_global_mouse_position();

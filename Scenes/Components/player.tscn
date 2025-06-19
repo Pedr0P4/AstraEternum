@@ -144,5 +144,5 @@ position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_07w4o")
 
 [node name="LaserGun" parent="." node_paths=PackedStringArray("related") instance=ExtResource("3_i6t11")]
-position = Vector2(0, 1)
+position = Vector2(0, 0.333333)
 related = NodePath("..")
