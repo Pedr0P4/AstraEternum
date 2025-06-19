@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://qj0hy1l0ytg5"]
+
+[ext_resource type="Texture2D" uid="uid://ckrlo7lmim6sy" path="res://Assets/Victory_screen.png" id="1_1fp7o"]
+[ext_resource type="Script" uid="uid://cwk0f765j46oi" path="res://Scripts/victory.gd" id="1_pyhgl"]
+
+[node name="victory" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_pyhgl")
+
+[node name="Container" type="Container" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Container"]
+position = Vector2(576, 324)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("1_1fp7o")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 11.8
+anchor_top = 11.2
+anchor_right = 17.2
+anchor_bottom = 12.8
+offset_top = -3.05176e-05
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 31
+text = "MENU"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
