@@ -1,10 +1,14 @@
-@tool
 extends TileMapLayer
 class_name Region
 
-@export var length: Vector2i
+@export var length := Vector2i(70, 40)
 @export var item: PackedScene
+@export var player_path: NodePath
+@onready var enemy_scene = preload("res://Scenes/enemy.tscn")
+
 var item_inst
+var rooms: Array[Rect2i]
+
 
 func divide_room(room: Rect2i) -> Array[Rect2i]:
 	var axis: StringName = "x" if room.size.x >= room.size.y else "y"
@@ -47,7 +51,7 @@ func create_horizontal_tunnel(x1: int, x2: int, y: int):
 	for x in range(min(x1, x2), max(x1, x2) + 1):
 		set_cell(Vector2(x, y), 0, Vector2(0, 0))
 
-# Desenha um túnel vertical
+
 func create_vertical_tunnel(y1: int, y2: int, x: int):
 	for y in range(min(y1, y2), max(y1, y2) + 1):
 		set_cell(Vector2(x, y), 0, Vector2(0, 0))
@@ -65,38 +69,35 @@ func create_corridor_between(room_a: Rect2i, room_b: Rect2i):
 		create_horizontal_tunnel(center_a.x, center_b.x, center_b.y)
 
 
-var rooms: Array[Rect2i]
-
 func place_item_in_random_distant_room():
 	var rng := RandomNumberGenerator.new()
 	rng.randomize()
-	
+
 	var tile_size = tile_set.tile_size
 	var origin_center = rooms[0].get_center()
-	var min_distance := 10.0  # você pode ajustar esse valor
-	
-	# Filtrar salas com distância suficiente
+	var min_distance := 10.0
+
 	var distant_rooms: Array[Rect2i] = []
 	for room in rooms:
 		var dist = origin_center.distance_to(room.get_center())
 		if dist >= min_distance:
 			distant_rooms.append(room)
-	
-	# Se não houver nenhuma suficientemente distante, usa qualquer uma (fallback)
+
 	var chosen_room: Rect2i
 	if distant_rooms.size() > 0:
 		chosen_room = distant_rooms.pick_random()
 	else:
 		chosen_room = rooms.pick_random()
-	# Instanciar item no centro da sala
+
 	if item:
 		var item_instance = item.instantiate()
-		item_inst = item_instance;
+		item_inst = item_instance
 		var center = chosen_room.get_center()
 		item_instance.position = Vector2(center) * Vector2(tile_size) + Vector2(tile_size) / 2
-		add_child(item_instance);
+		add_child(item_instance)
 	else:
 		print("Cena do item não atribuída!")
+
 
 func _ready():
 	var rng := RandomNumberGenerator.new()
@@ -109,28 +110,40 @@ func _ready():
 			set_cell(Vector2(x, y), 0, Vector2(1, 0))
 	
 	for r in rooms:
-		var padding: Vector4i
+		var top_left_padding: Vector2i
+		var bottom_right_padding: Vector2i
+
 		if r.size.x <= 5:
-			padding.w = 1
-			padding.x = 1
+			top_left_padding.x = 1
+			bottom_right_padding.x = 1
 		else:
-			padding.w = rng.randi_range(1,2)
-			padding.x = rng.randi_range(1,2)
-	
+			top_left_padding.x = rng.randi_range(1, 2)
+			bottom_right_padding.x = rng.randi_range(1, 2)
+
 		if r.size.y <= 5:
-			padding.y = 1
-			padding.z = 1
+			top_left_padding.y = 1
+			bottom_right_padding.y = 1
 		else:
-			padding.y = rng.randi_range(1,2)
-			padding.z = rng.randi_range(1,2)
-	
+			top_left_padding.y = rng.randi_range(1, 2)
+			bottom_right_padding.y = rng.randi_range(1, 2)
+
 		if r.position == Vector2i.ZERO:
-			padding.w = 0
-			padding.y = 0
-	
-		for x in range(r.position.x + padding.w, r.end.x - padding.x):
-			for y in range(r.position.y + padding.y, r.end.y - padding.z):
+			top_left_padding = Vector2.ZERO
+
+		for x in range(r.position.x + top_left_padding.x, r.end.x - bottom_right_padding.x):
+			for y in range(r.position.y + top_left_padding.y, r.end.y - bottom_right_padding.y):
 				set_cell(Vector2(x, y), 0, Vector2(0, 0))
+		
+		var enemy_count = randi_range(2, 5)
+		for i in enemy_count:
+			var x = randi_range(r.position.x + top_left_padding.x, r.end.x - bottom_right_padding.x - 1)
+			var y = randi_range(r.position.y + top_left_padding.y, r.end.y - bottom_right_padding.y - 1)
+			var enemy := enemy_scene.instantiate()
+			enemy.rotate(-rotation)
+			enemy.scale.y *= scale.y
+			enemy.player_path = player_path
+			enemy.position = map_to_local(Vector2i(x, y))
+			add_child.call_deferred(enemy)
 	
 	var num_parents = (rooms.size() - 1) / 2
 	

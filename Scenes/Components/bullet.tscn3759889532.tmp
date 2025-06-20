@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://b6rlo1qrfn4qx"]
 
-[ext_resource type="Script" uid="uid://da728f3l0vujk" path="res://Scripts/bullet.gd" id="1_1wk8m"]
+[ext_resource type="Script" uid="uid://da728f3l0vujk" path="res://Scripts/pink-laser.gd" id="1_1wk8m"]
 [ext_resource type="Texture2D" uid="uid://hesds3aiyyb5" path="res://Assets/SpriteSheets/bullet.png" id="1_mjcmj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1wk8m"]
@@ -37,18 +37,16 @@ radius = 3.0
 height = 8.0
 
 [node name="Bullet" type="Area2D"]
-collision_layer = 4
-collision_mask = 5
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_1wk8m")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
-rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_v2k8r")
 autoplay = "default"
 frame_progress = 0.989195
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-rotation = 1.5708
 shape = SubResource("CapsuleShape2D_1wk8m")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

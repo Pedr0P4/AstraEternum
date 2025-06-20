@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbe5on8oukngg"]
+
+[ext_resource type="Script" uid="uid://b37f37i46dkoh" path="res://Scripts/hud.gd" id="1_e0onf"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_e0onf")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_right = 60.0
+offset_bottom = 40.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Vidas:"
+
+[node name="LifeLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "2"

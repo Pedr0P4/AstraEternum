@@ -2,7 +2,7 @@ extends Node2D
 class_name Weapon
 
 @export var related: Player;
-@export var bullet: PackedScene;
+@export var bullet := preload("res://Scenes/Components/bullet.tscn")
 var shooting: bool;
 
 func point(sprite: AnimatedSprite2D) -> void:
@@ -23,9 +23,8 @@ func point(sprite: AnimatedSprite2D) -> void:
 			sprite.flip_v = false;
 
 func fire(marker: Marker2D) -> void:
-	var bullet_instance = bullet.instantiate();
-	bullet_instance.dir = rotation;
-	bullet_instance.pos = marker.global_position;
-	bullet_instance.rot = rotation - PI/2;
-	bullet_instance.scl = 1;
-	get_tree().current_scene.add_child(bullet_instance);
+	var bullet_instance = bullet.instantiate()
+	var direction_to_mouse = (get_global_mouse_position() - marker.global_position).normalized()
+	bullet_instance.direction = direction_to_mouse
+	bullet_instance.position = marker.global_position
+	get_tree().current_scene.add_child(bullet_instance)
