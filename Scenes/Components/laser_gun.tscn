@@ -1,8 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://bqq7y1c1oxl1u"]
+[gd_scene load_steps=12 format=3 uid="uid://bqq7y1c1oxl1u"]
 
 [ext_resource type="Texture2D" uid="uid://ce5klyfn3dno5" path="res://Assets/DotAse/Sprites/Provs/Ast_arm.png" id="1_ei6jx"]
 [ext_resource type="Script" uid="uid://62p8e3wrkghl" path="res://Scripts/gun.gd" id="1_wql21"]
-[ext_resource type="PackedScene" uid="uid://b6rlo1qrfn4qx" path="res://Scenes/Components/bullet.tscn" id="2_d8hd3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d8hd3"]
 atlas = ExtResource("1_ei6jx")
@@ -86,7 +85,6 @@ animations = [{
 [node name="LaserGun" type="Node2D"]
 z_index = 10
 script = ExtResource("1_wql21")
-bullet = ExtResource("2_d8hd3")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_g0vbd")
