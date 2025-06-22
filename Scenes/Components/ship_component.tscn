@@ -66,6 +66,7 @@ animation = &"wings"
 autoplay = "wings"
 
 [node name="CollectArea" type="Area2D" parent="."]
+collision_mask = 3
 
 [node name="Collision" type="CollisionShape2D" parent="CollectArea"]
 shape = SubResource("CircleShape2D_mibwl")

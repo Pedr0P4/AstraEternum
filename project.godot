@@ -28,6 +28,10 @@ folder_colors={
 "res://Shaders/": "yellow"
 }
 
+[global_group]
+
+player=""
+
 [input]
 
 up={
