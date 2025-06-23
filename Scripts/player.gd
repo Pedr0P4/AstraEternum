@@ -70,8 +70,14 @@ func _physics_process(delta: float) -> void:
 func take_damage(amount: int) -> void:
 	if is_invincible:
 		return
+	if !is_dead:
+		$HitSound.play();
 	is_invincible = true
 	invincibility_time_left = INVENCIBILITY_TIME
 	blink_time_left = 0.0
 	visible = true
 	damage_taken.emit(amount);
+
+
+func _on_laser_gun_shoot() -> void:
+	$ShootSound.play_random_audio();

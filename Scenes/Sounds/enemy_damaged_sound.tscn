@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://8gmvxu53svuu"]
+
+[ext_resource type="AudioStream" uid="uid://cjvhly15puovd" path="res://Assets/Sounds/Player_Hit/Player_Hit.wav" id="1_uwxpn"]
+[ext_resource type="Script" uid="uid://cx4cgovyraaro" path="res://Scripts/SoundScripts/sound_randomizer.gd" id="1_ysg8o"]
+[ext_resource type="AudioStream" uid="uid://4nvq765vqy7k" path="res://Assets/Sounds/Player_Hit/Player_Hit2.wav" id="2_ysg8o"]
+[ext_resource type="AudioStream" uid="uid://ogyomxo82wcp" path="res://Assets/Sounds/Player_Hit/Player_Hit3.wav" id="3_cfibc"]
+
+[node name="EnemyDamagedSound" type="Node2D"]
+script = ExtResource("1_ysg8o")
+
+[node name="Sounds" type="Node2D" parent="."]
+
+[node name="Audio1" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource("1_uwxpn")
+
+[node name="Audio2" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource("2_ysg8o")
+
+[node name="Audio3" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource("3_cfibc")

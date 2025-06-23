@@ -18,11 +18,10 @@ func _process(delta: float) -> void:
 	if player.collected:
 		change_itens();
 		player.collected = false;
-	
-	if actual_region > 4:
-		get_tree().change_scene_to_file("res://Scenes/victory.tscn");
 
 func increment_region() -> void:
+	if actual_region == 4:
+		$VictoryTimer.start();
 	actual_region += 1;
 	if player.is_with_component:
 		player.is_with_component = false;
@@ -36,6 +35,7 @@ func _on_player_damaged(amount: int) -> void:
 	lifes.take_damage(amount);
 
 func _on_player_died() -> void:
+	$DeathSound.play();
 	$LoseTimer.start();
 	player.player_collider.disabled = true;
 	player.is_dead = true;
@@ -44,3 +44,6 @@ func _on_player_died() -> void:
 
 func _on_lose_timer_timeout() -> void:
 	get_tree().change_scene_to_file("res://Scenes/game_over.tscn");
+
+func _on_victory_timer_timeout() -> void:
+	get_tree().change_scene_to_file("res://Scenes/victory.tscn");

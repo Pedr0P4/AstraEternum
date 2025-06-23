@@ -1,5 +1,7 @@
 extends Weapon
 
+signal shoot
+
 var can_shoot: bool;
 
 func _ready() -> void:
@@ -16,6 +18,7 @@ func _process(delta: float) -> void:
 			$Sprite.stop();
 			shooting = true;
 			$Sprite.play("Sides_shooting");
+		shoot.emit();
 		fire($Position);
 		can_shoot = false;
 		$ShootCD.start();

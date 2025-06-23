@@ -16,12 +16,15 @@ func change_item(num: int) -> void:
 		4:
 			item = "antenna";
 	$Sprite.play(item);
-	print("Item da region " + str(num) + " é: " + item);
 
 func _on_collect_area_body_entered(body: Node2D) -> void:
 	if body is Player:
 		if !body.is_with_component:
 			body.is_with_component = true;
 			body.collected = true;
-			print("Coletado!");
-			queue_free();
+			$PickupSound.play();
+			$CollectArea/Collision.disabled = true;
+			visible = false;
+
+func _on_pickup_sound_finished() -> void:
+	queue_free();

@@ -18,5 +18,5 @@ func _on_interact_area_body_entered(body: Node2D) -> void:
 				4:
 					stage = "lv4";
 			$Sprite.play(stage);
-			print("Devolvido!");
+			$ArriveSound.play();
 			game_controller.increment_region();

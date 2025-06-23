@@ -37,9 +37,16 @@ func _on_timer_timeout():
 
 
 func take_damage():
-	queue_free()
+	$EnemyDamagedSound.play_random_audio();
+	$CollisionShape2D.disabled = true;
+	$Area2D/CollisionShape2D.disabled = true;
+	visible = false;
 
 
 func _on_area_2d_body_entered(body: Node2D):
 	if body.is_in_group(&"player"):
 		body.take_damage(1)
+
+
+func _on_enemy_damaged_sound_sound_finished() -> void:
+	queue_free();

@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://chffmpeu8nd8g"]
+[gd_scene load_steps=10 format=3 uid="uid://chffmpeu8nd8g"]
 
 [ext_resource type="Texture2D" uid="uid://yckj80646rt6" path="res://Assets/SpriteSheets/spaceship_components.png" id="1_owsl2"]
 [ext_resource type="Script" uid="uid://cox1o81emhmvt" path="res://ship_component.gd" id="1_ti7kx"]
+[ext_resource type="AudioStream" uid="uid://dpf6tus7tyv4w" path="res://Assets/Sounds/Pickup_Spaceship_Component.wav" id="3_kg1es"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ti7kx"]
 atlas = ExtResource("1_owsl2")
@@ -71,4 +72,8 @@ collision_mask = 3
 [node name="Collision" type="CollisionShape2D" parent="CollectArea"]
 shape = SubResource("CircleShape2D_mibwl")
 
+[node name="PickupSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_kg1es")
+
 [connection signal="body_entered" from="CollectArea" to="." method="_on_collect_area_body_entered"]
+[connection signal="finished" from="PickupSound" to="." method="_on_pickup_sound_finished"]
