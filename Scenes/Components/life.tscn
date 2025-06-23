@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://dmmuasfjx7b8o"]
+
+[ext_resource type="Texture2D" uid="uid://bse75y1kxk7ar" path="res://Assets/SpriteSheets/lifes.png" id="1_qipe0"]
+[ext_resource type="Script" uid="uid://dmk0fe1x1wlt4" path="res://Scripts/life.gd" id="2_nmatr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qipe0"]
+atlas = ExtResource("1_qipe0")
+region = Rect2(36, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nmatr"]
+atlas = ExtResource("1_qipe0")
+region = Rect2(18, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rgvhi"]
+atlas = ExtResource("1_qipe0")
+region = Rect2(0, 0, 18, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o5pxj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qipe0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nmatr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rgvhi")
+}],
+"loop": false,
+"name": &"default",
+"speed": 0.0
+}]
+
+[node name="Life" type="BoxContainer"]
+script = ExtResource("2_nmatr")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_o5pxj")
+autoplay = "default"

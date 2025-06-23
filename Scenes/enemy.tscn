@@ -1,27 +1,60 @@
-[gd_scene load_steps=5 format=3 uid="uid://b1i0i1fab5npt"]
+[gd_scene load_steps=9 format=3 uid="uid://b1i0i1fab5npt"]
 
 [ext_resource type="Script" uid="uid://dtsy8p06ouajb" path="res://Scripts/enemy.gd" id="1_1f0kj"]
-[ext_resource type="Texture2D" uid="uid://djv5f45spitij" path="res://icon.svg" id="1_hghv2"]
+[ext_resource type="Texture2D" uid="uid://d2pxjglnus6qp" path="res://Assets/SpriteSheets/bat.png" id="2_1f0kj"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hghv2"]
-size = Vector2(12, 12)
+[sub_resource type="AtlasTexture" id="AtlasTexture_afpow"]
+atlas = ExtResource("2_1f0kj")
+region = Rect2(0, 0, 17, 16)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1f0kj"]
-size = Vector2(12, 12)
+[sub_resource type="AtlasTexture" id="AtlasTexture_287tu"]
+atlas = ExtResource("2_1f0kj")
+region = Rect2(17, 0, 17, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0830c"]
+atlas = ExtResource("2_1f0kj")
+region = Rect2(34, 0, 17, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ghaa6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_afpow")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_287tu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0830c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1f0kj"]
+radius = 4.01386
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_afpow"]
+radius = 3.34996
 
 [node name="Enemy" type="CharacterBody2D"]
+scale = Vector2(1.5, 1.5)
 collision_layer = 4
 collision_mask = 5
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_1f0kj")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("1_hghv2")
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.705882, 0.75)
+sprite_frames = SubResource("SpriteFrames_ghaa6")
+autoplay = "default"
+frame_progress = 0.466701
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_hghv2")
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_1f0kj")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
@@ -34,7 +67,8 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_1f0kj")
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_afpow")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

@@ -1,8 +1,7 @@
 class_name Player
 extends CharacterBody2D
 
-signal health_updated(current_health: int)
-signal died
+signal damage_taken(damage: int)
 
 @onready var player_sprite: AnimatedSprite2D = $PlayerSprites
 @onready var player_collider: CollisionShape2D = $PlayerCollision
@@ -20,27 +19,32 @@ var blink_time_left := 0.0
 
 var is_with_component: bool
 var collected: bool
+var is_dead: bool
 
 
 func _ready() -> void:
 	is_with_component = false
 	collected = false
+	is_dead = false;
 
 func _process(_delta: float) -> void:
-	var globalM_pos: Vector2 = get_global_mouse_position()
-	var x_cap: float = abs(globalM_pos.y - position.y) * 1.2
-	if velocity != Vector2.ZERO:
-		if globalM_pos.y > position.y:
-			player_sprite.play("Move_down")
-		elif (globalM_pos.x < global_position.x + x_cap && globalM_pos.x > global_position.x - x_cap):
-			player_sprite.play("Move_up")
+	if !is_dead:
+		var globalM_pos: Vector2 = get_global_mouse_position()
+		var x_cap: float = abs(globalM_pos.y - position.y) * 1.2
+		if velocity != Vector2.ZERO:
+			if globalM_pos.y > position.y:
+				player_sprite.play("Move_down")
+			elif (globalM_pos.x < global_position.x + x_cap && globalM_pos.x > global_position.x - x_cap):
+				player_sprite.play("Move_up")
+			else:
+				player_sprite.play("Move_down")
 		else:
-			player_sprite.play("Move_down")
+			if globalM_pos.y <= position.y && (globalM_pos.x < position.x + x_cap && globalM_pos.x > position.x - x_cap):
+				player_sprite.play("IdleB")
+			else:
+				player_sprite.play("IdleF")
 	else:
-		if globalM_pos.y <= position.y && (globalM_pos.x < position.x + x_cap && globalM_pos.x > position.x - x_cap):
-			player_sprite.play("IdleB")
-		else:
-			player_sprite.play("IdleF")
+		player_sprite.play("Dying");
 
 
 func _physics_process(delta: float) -> void:
@@ -55,25 +59,19 @@ func _physics_process(delta: float) -> void:
 		if invincibility_time_left <= 0.0:
 			is_invincible = false
 			visible = true
+	if !is_dead:
+		var direction = Input.get_vector("left", "right", "up", "down")
+		velocity = direction * VELOCITY
+		laser_gun.look_at(get_global_mouse_position())
 
-	var direction = Input.get_vector("left", "right", "up", "down")
-	velocity = direction * VELOCITY
-	laser_gun.look_at(get_global_mouse_position())
-
-	move_and_slide()
+		move_and_slide()
 
 
 func take_damage(amount: int) -> void:
 	if is_invincible:
 		return
-
 	is_invincible = true
 	invincibility_time_left = INVENCIBILITY_TIME
 	blink_time_left = 0.0
 	visible = true
-
-	current_health -= amount
-	if current_health <= 0:
-		died.emit()
-
-	health_updated.emit(current_health)
+	damage_taken.emit(amount);

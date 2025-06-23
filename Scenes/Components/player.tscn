@@ -1,8 +1,29 @@
-[gd_scene load_steps=20 format=3 uid="uid://cluqhmv1qfhcw"]
+[gd_scene load_steps=26 format=3 uid="uid://cluqhmv1qfhcw"]
 
 [ext_resource type="Script" uid="uid://erigdd5s0fud" path="res://Scripts/player.gd" id="1_coypj"]
 [ext_resource type="Texture2D" uid="uid://cacs8olng4e0h" path="res://Assets/SpriteSheets/Ast_noarm.png" id="2_i6t11"]
+[ext_resource type="Texture2D" uid="uid://bhtdj7it38w3o" path="res://Assets/SpriteSheets/Ast_dying.png" id="2_p0vwk"]
 [ext_resource type="PackedScene" uid="uid://bqq7y1c1oxl1u" path="res://Scenes/Components/laser_gun.tscn" id="3_i6t11"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i2f80"]
+atlas = ExtResource("2_p0vwk")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3xpea"]
+atlas = ExtResource("2_p0vwk")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mc8d8"]
+atlas = ExtResource("2_p0vwk")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s55l8"]
+atlas = ExtResource("2_p0vwk")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c88v4"]
+atlas = ExtResource("2_p0vwk")
+region = Rect2(64, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sgrgp"]
 atlas = ExtResource("2_i6t11")
@@ -62,6 +83,26 @@ region = Rect2(48, 16, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3tjp4"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i2f80")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3xpea")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mc8d8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s55l8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c88v4")
+}],
+"loop": false,
+"name": &"Dying",
+"speed": 8.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sgrgp")
@@ -131,14 +172,14 @@ size = Vector2(8, 11)
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 z_index = 5
 scale = Vector2(3, 3)
-collision_layer = 2
-collision_mask = 3
+collision_layer = 10
+collision_mask = 11
 motion_mode = 1
 script = ExtResource("1_coypj")
 
 [node name="PlayerSprites" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_3tjp4")
-animation = &"IdleF"
+animation = &"Dying"
 autoplay = "IdleF"
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="."]

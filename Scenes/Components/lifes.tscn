@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqrfj5jdu54u3"]
+
+[ext_resource type="PackedScene" uid="uid://dmmuasfjx7b8o" path="res://Scenes/Components/life.tscn" id="1_36mth"]
+[ext_resource type="Script" uid="uid://djlw3jdq7y42b" path="res://Scripts/lifes.gd" id="1_bn2xy"]
+
+[node name="Lifes" type="Container"]
+anchors_preset = -1
+anchor_right = 0.035
+offset_right = -0.32
+script = ExtResource("1_bn2xy")
+
+[node name="Lifes" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/separation = 19
+
+[node name="Life" parent="Lifes" instance=ExtResource("1_36mth")]
+layout_mode = 2
+
+[node name="Life2" parent="Lifes" instance=ExtResource("1_36mth")]
+layout_mode = 2
+
+[node name="Life3" parent="Lifes" instance=ExtResource("1_36mth")]
+layout_mode = 2

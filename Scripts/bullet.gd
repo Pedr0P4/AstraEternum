@@ -11,10 +11,7 @@ func _ready():
 
 
 func _process(delta: float) -> void:
-	if abs(global_position) > get_viewport_rect().size:
-		queue_free()
 	position += direction.normalized() * SPEED * delta
-
 
 func _on_body_entered(body):
 	if body.has_method("take_damage"):
