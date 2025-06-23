@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://bih2b2lwmg8i6"]
+[gd_scene load_steps=13 format=4 uid="uid://bih2b2lwmg8i6"]
 
 [ext_resource type="PackedScene" uid="uid://cluqhmv1qfhcw" path="res://Scenes/Components/player.tscn" id="1_ebmjs"]
 [ext_resource type="PackedScene" uid="uid://dorvu4pup3jmw" path="res://Scenes/Components/level_generator.tscn" id="2_qxrlw"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://de3obnu7erwge" path="res://Assets/img/tileset.png" id="5_wowpa"]
 [ext_resource type="Script" uid="uid://dgfs4qbw2pjy" path="res://Scripts/game_controller.gd" id="6_i6g32"]
 [ext_resource type="AudioStream" uid="uid://jspmgpfcxkl5" path="res://Assets/Sounds/Death.wav" id="7_v158k"]
+[ext_resource type="AudioStream" uid="uid://cx3pnphg56aey" path="res://Assets/Songs/game_song.wav" id="8_h4fw4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i6g32"]
 texture = ExtResource("5_wowpa")
@@ -69,6 +70,11 @@ one_shot = true
 
 [node name="DeathSound" type="AudioStreamPlayer2D" parent="GameController"]
 stream = ExtResource("7_v158k")
+
+[node name="GameSong" type="AudioStreamPlayer" parent="GameController"]
+stream = ExtResource("8_h4fw4")
+volume_db = -10.0
+autoplay = true
 
 [node name="Levels" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_1l0tm")

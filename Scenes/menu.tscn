@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://d1w6mvxx62pss"]
+[gd_scene load_steps=4 format=3 uid="uid://d1w6mvxx62pss"]
 
 [ext_resource type="Script" uid="uid://cjlwf3ffhdptb" path="res://Scripts/menu.gd" id="1_xhh6f"]
 [ext_resource type="Texture2D" uid="uid://c5prbq4dfm0f0" path="res://Assets/Menu.png" id="2_cayip"]
+[ext_resource type="AudioStream" uid="uid://dx356kba6b1ox" path="res://Assets/Songs/menu_song.wav" id="3_cayip"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -40,5 +41,9 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 49
 text = "Jogar"
+
+[node name="MenuSong" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_cayip")
+autoplay = true
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

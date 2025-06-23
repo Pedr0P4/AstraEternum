@@ -43,7 +43,9 @@ func _on_player_died() -> void:
 		player.laser_gun.queue_free();
 
 func _on_lose_timer_timeout() -> void:
+	$GameSong.stop();
 	get_tree().change_scene_to_file("res://Scenes/game_over.tscn");
 
 func _on_victory_timer_timeout() -> void:
+	$GameSong.stop();
 	get_tree().change_scene_to_file("res://Scenes/victory.tscn");
